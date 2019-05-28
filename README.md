@@ -7,7 +7,7 @@ Install FFMPEG and make sure to add it to your PATH.
 
 ## Device
 
-A video capture device is required. I used the [August VGB100](http://www.amazon.ca/gp/product/B008F0SARC) which is available for $30 in Canada.
+A video capture device is required. I used the [Aplic - USB Audio Video Grabber](https://www.amazon.de/gp/product/B01D1OOQ4C/) which is available for $30 in Canada.
 
 Install the device as normal. You won't need the conversion software that comes with the device, only the drivers.
 
@@ -189,8 +189,6 @@ ffmpeg -ss 10 -i out.m4v -c copy -to 1:10:00 out-trimmed.m4v
 * `-c copy` Use the `copy` codec for both audio and video, should process even large videos extremely quickly, since no re-encoding is being done
 * `-to 1:10:00` End the video copy at a specific time marker, everything after this point will be trimmed off
 * `out-trimmed.m4v` The output file to write to
-
-https://my-digital-home.de/hardware/videos-vhs-digitalisieren-video-auf-dvd-so-einfach-geht-es-mit-dem-video-grabber/
 
 https://en.wikipedia.org/wiki/VHS
 

@@ -3,11 +3,16 @@ from subprocess import Popen, PIPE, STDOUT
 import json
 import argparse
 import subprocess
+import server
+import threading
+import time
+from multiprocessing import Process
 
 MY_VI_DEVICE = "USB2.0 Grabber"
 MY_AU_DEVICE = "Digitale Audioschnittstelle (USB Audio Interface)"
 V_CH = "0"
 A_CH = "4"
+END_SEQUENCE ="q"
 
 e_dict = {
   "E-30": "01:05:00",
@@ -35,6 +40,7 @@ parser.add_argument("--maxrate", default=25000, type=int, help='Maximum bitrate'
 parser.add_argument("--out", required=True, help='Output file')
 parser.add_argument("--preset", default="fast", help="ffmpeg capture preset `veryslow`, `slower`, `slow`, `medium`, `fast`, `faster`, `veryfast`.")
 parser.add_argument("--shutdown", required=False, help="add flag to shudown after finisch..", default=False, action="store_true")
+parser.add_argument("--start", required=False, help="promt for key before start", default=False, action="store_true")
 
 args, unkown = parser.parse_known_args()
 
@@ -46,7 +52,6 @@ def e_to_time(s):
   return e_dict[s]
 
 # rotes audio kebel hernehmen!
-
 # convert E-** to time **:**:** https://en.wikipedia.org/wiki/VHS "PAL market"
 if args.time.startswith("E"):
   if args.time in e_dict.keys():
@@ -84,25 +89,15 @@ cmd = [
 ]
 
 def main():
-  input("Start? \n\n\n")
-  try:
-    print("".join(cmd) + "\n\n\n\n\n\n")
-    p = Popen(cmd, stdout=None, stderr=None)
-    exit = p.wait()
-    print("FFMPEG exit code " + str(exit))
-    # from subprocess import Popen, PIPE, STDOUT
-    # p = Popen(['grep', 'f'], stdout=PIPE, stdin=PIPE, stderr=STDOUT)    
-    # grep_stdout = p.communicate(input=b'one\ntwo\nthree\nfour\nfive\nsix\n')[0]
-    # print(grep_stdout.decode())
-    # # -> four
-    # # -> five
-    # # ->
-    if args.shutdown:
-      shutdown()
-    else:
-      pass
-  except KeyboardInterrupt:
-    pass
+  print("".join(cmd) + "\n\n\n\n\n\n")
+  p = Popen(cmd, stdout=None, stderr=None)
+  p.communicate(input="asdasdasdasdasd")
+  exit = p.wait()
+  print("FFMPEG exit code " + str(exit))
 
 if __name__ == "__main__":
+  if args.start:
+    input("\n\n\n #### Start? ####\n\n\n")
   main()
+  if args.shutdown:
+      shutdown()

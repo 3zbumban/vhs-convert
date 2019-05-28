@@ -11,6 +11,7 @@ def listen_on_button():
     while True: # Run forever
         if GPIO.input(10) == GPIO.HIGH:
             print("Button was pushed!")
+            # break
 
 def main():
     listen_on_button()
