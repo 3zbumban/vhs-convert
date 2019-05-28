@@ -2,6 +2,7 @@
 
 import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
 import socket
+import client
 
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
@@ -11,6 +12,8 @@ def listen_on_button():
     while True: # Run forever
         if GPIO.input(10) == GPIO.HIGH:
             print("Button was pushed!")
+            client.client()
+            break
             # break
 
 def main():
