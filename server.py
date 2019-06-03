@@ -15,6 +15,7 @@ def server():
       data = conn.recv(1024)
       if not data: break
       if data.decode() == "q":
+        return True
         print("quit", addr)
       print(data.decode())
       conn.sendall(data)

@@ -41,6 +41,8 @@ parser.add_argument("--out", required=True, help='Output file')
 parser.add_argument("--preset", default="fast", help="ffmpeg capture preset `veryslow`, `slower`, `slow`, `medium`, `fast`, `faster`, `veryfast`.")
 parser.add_argument("--shutdown", required=False, help="add flag to shudown after finisch..", default=False, action="store_true")
 parser.add_argument("--start", required=False, help="promt for key before start", default=False, action="store_true")
+parser.add_argument("--socket", required=False, help="use socket", default=False, action="store_true")
+
 
 args, unkown = parser.parse_known_args()
 
@@ -90,8 +92,16 @@ cmd = [
 
 def main():
   print("".join(cmd) + "\n\n\n\n\n\n")
-  p = Popen(cmd, stdout=None, stderr=None)
-  p.communicate(input="asdasdasdasdasd")
+  if not args.socket:
+    p = Popen(cmd, stdout=None, stderr=None)
+  elif args.socket:
+    cmd.append("-y")
+    p = Popen(cmd, stdout=None, stderr=None, stdin=PIPE)    
+    s = server.server()
+    if s:
+      p.communicate(input=b"q")
+  else:
+    pass
   exit = p.wait()
   print("FFMPEG exit code " + str(exit))
 
