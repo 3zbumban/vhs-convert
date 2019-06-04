@@ -34,7 +34,7 @@ parser.add_argument("--video_size", default="720x480", help='Video resolution se
 parser.add_argument("--scale_to", default="640x480", help='Scale video to resolution')
 parser.add_argument("--fps", default=29.97, type=float, help='Frames per second (float)')
 parser.add_argument("--device", default=MY_VI_DEVICE, help='Capture device name')
-parser.add_argument("--time", default="6:10:00", help='Capture time limit')
+parser.add_argument("--time", default="12:10:00", help='Capture time limit')
 parser.add_argument("--crf", default=24, type=int, help='CRF setting')
 parser.add_argument("--maxrate", default=25000, type=int, help='Maximum bitrate')
 parser.add_argument("--out", required=True, help='Output file')
